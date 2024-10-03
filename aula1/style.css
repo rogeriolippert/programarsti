@@ -8,12 +8,14 @@ body {
     margin-bottom: 10px;
 }
 .col-3 {
-    background-color: #f8f9fa;
+    background-color: rgba(15, 14, 14, 0.836);
     padding: 20px;
-    border-right: 1px solid #dee2e6;
+    border-right: 1px solid #3e7942;
+    color:white;
 }
 .col-9 {
     padding: 20px;
+    background-color: rgba(15, 14, 14, 0.836);
 }
 .invalid-feedback {
     color: red;
