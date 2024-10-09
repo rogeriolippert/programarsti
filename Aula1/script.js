@@ -1,8 +1,15 @@
-
 $(document).ready(function () {
+    // Variável global "resposta" que armazena
+    // a resposta JSON da consulta do CEP
+    // digitado pelo usuário.
+    let resposta = '';
+    
+    
+    
     //Adiciona o patterner ao campo Cep
     $("input[name=cep]").mask("00000-000");
     $("input[name=numero]").mask("#");
+    
     
     $("form").on('submit', function (event) {
         //Interompe o evento
@@ -10,6 +17,22 @@ $(document).ready(function () {
         
         event.prevetDefault();
     });
+    
+    $("input[name=tel]").mask("(00) 00000-0000")
+    $("input[name=tel]").on("keyup",function(){
+        let tel= $("input[name=tel]").val();
+        tel = tel.replace(/[\D]/g, '');
+        if(tel.length <11 ){
+            maskara = "(00) 0000-00000"
+        }
+        else{
+            maskara = "(00) 00000-0000"
+        }
+        $("input[name=tel").mask(maskara)
+        
+    });
+    
+    
     $("input[name=cep]").on("keyup", function (event) {
         let cep = $("input[name=cep]").val();
         cep = cep.replace("-", "");
@@ -18,7 +41,7 @@ $(document).ready(function () {
             
             $.ajax("https://viacep.com.br/ws/" + cep + "/json")
             .done(function (data) {
-                let resposta = JSON.parse(data);
+                resposta = JSON.parse(data);
                 if (resposta.erro) {
                     $("input[name=cep]").addClass("is-invalid");
                     return; // sai da função
@@ -26,17 +49,24 @@ $(document).ready(function () {
                 // só preenche os campos após receber
                 // a resposta sem erros
                 $("input[name=rua]").val(resposta.logradouro);
+                if(resposta.logradouro !== ""){
+                    $("input[name=rua]").prop("disabled", true);
+                }
                 $("input[name=complemento").val(resposta.complemento);
+                if(resposta.complemento !== ""){
+                    $("input[name=coplemento]").prop("disabled", true);
+                }
                 $("input[name=bairro]").val(resposta.bairro);
+                if(resposta.bairro !== ""){
+                    $("input[name=bairro]").prop("disabled", true);
+                }
                 $("select[name=estado]").val(resposta.uf);
-                $("input[name=cidade]").val(resposta.localidade);
+                $("select[name=estado]").trigger("change");
+                
             });
         }
     });
     
-});
-
-$(document).ready(function() {
     const urlEstados = 'https://servicodados.ibge.gov.br/api/v1/localidades/estados';
     
     // Carregar os estados na inicialização
@@ -68,7 +98,13 @@ $(document).ready(function() {
                 data.forEach(function(cidade) {
                     $('#cidade').append(`<option value="${cidade.nome}">${cidade.nome}</option>`);
                 });
+                
+                // Popula o campo "Cidade" com a cidade que o CEP digitado
+                // pelo usuário pertence.
+                $("select[name=cidade]").val(resposta.localidade);
+                
             });
+            
         } else {
             $('#cidade').empty(); // Limpa o select de cidades caso não haja estado selecionado
             $('#cidade').append(`<option value="">Primeiro selecione o estado</option>`);

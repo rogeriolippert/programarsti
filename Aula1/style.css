@@ -20,3 +20,7 @@ body {
 .invalid-feedback {
     color: red;
 }
+#btn{
+    background-color: rgb(66, 66, 235);
+    color:white;
+}
