@@ -1,0 +1,88 @@
+/* Estilos principais */
+body {
+    background-color: #300a24; /* Cor de fundo escura semelhante ao terminal Ubuntu */
+    color: #369b54; /* Texto claro para contraste */
+    font-family: "Ubuntu Mono", monospace; /* Fonte de terminal */
+    padding: 20px;
+  }
+  
+  /* Estilo da tabela */
+  .table {
+    border: 1px solid #ff6f00; /* Bordas laranja semelhantes ao esquema de cores do Ubuntu */
+    background-color: #5b7075; /* Cor de fundo da tabela */
+  }
+  
+  .table th, .table td {
+    color: #eeeeee; /* Texto claro */
+    padding: 9px;
+    border-bottom: 1px solid #ff6f00; /* Separadores de linha laranja */
+    white-space: nowrap;
+  }
+  
+  .table-hover tbody tr:hover {
+    background-color: #1f1d1d; /* Cor de fundo ao passar o mouse */
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #333333; /* Linhas com tons alternados */
+  }
+  
+  th {
+    background-color: #555753; /* Fundo das cabeçalhos da tabela */
+    color: #ffcc00; /* Cor laranja típica do Ubuntu */
+  }
+  
+  /* Estilo da barra superior do "terminal" 
+  .table-responsive {
+    border-top: 30px solid #2e3436;
+    position: relative;
+  }
+  */
+  .table-responsive::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    left: 0;
+    height: 30px;
+    width: 100%;
+    background-color: #2e3436; /* Cor de fundo do título da janela */
+    border-bottom: 2px solid #ff6f00; /* Borda inferior laranja */
+  }
+  
+  .table-responsive::after {
+    content: 'Usuário@: ~';
+    position: absolute;
+    top: -30px;
+    left: 10px;
+    color: #bebaba; /* Texto claro */
+    font-family: "Ubuntu Mono", monospace;
+    font-size: 14px;
+  }
+  
+  /* Estilo dos ícones de controle */
+  .table-responsive::before,
+  .table-responsive::after {
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px;
+  }
+  
+  .table-responsive::before {
+    content: '';
+  }
+  
+  .table-responsive::after {
+    justify-content: flex-start;
+  }
+  
+  .table-responsive::before::after {
+    content: '●  ●  ●'; /* Simulando os botões de fechar, minimizar e maximizar */
+    color: #ff0000;
+    margin-right: 10px;
+  }
+  
+  li.dt-paging-button {
+    float: left;
+    list-style-type: none;
+    white-space: nowrap;
+}
